@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "a113244c-65c4-4fd2-a8b5-f766e2bc0275",
+		"name": "PetFriends 8.7",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25056701"
+	},
+	"item": [
+		{
+			"name": "получение и установка APIKEY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"pm.test(\"ключ получен и сохранён в переменную auth_key\", function () {\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.collectionVariables.set(\"auth_key\", jsonData.key);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "email",
+						"value": "zzzawsss11@gmail.com",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "12345",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/key",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"key"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "создание карточки питомца",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    var data = JSON.parse(responseBody);\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"id и name сохранены в переменных\", function () {\r",
+							"    var data = JSON.parse(responseBody);\r",
+							"    pm.collectionVariables.set(\"petid\", data.id);\r",
+							"    pm.collectionVariables.set(\"name\", data.name);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "emall",
+						"value": "zzzawsss11@gmail.com",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "12345",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "animal_type",
+							"value": "{{type}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "petid",
+							"value": "{{petid}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/create_pet_simple",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"create_pet_simple"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Изменение имени питомца",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    var data = JSON.parse(responseBody);\r",
+							"    pm.response.to.have.status(200);\r",
+							"    })\r",
+							"pm.test(\"новое имя НЕ = имени в переменной\", function () {\r",
+							"    var data = JSON.parse(responseBody);\r",
+							"    pm.expect(pm.collectionVariables.get(\"name\")).to.not.equal(data.id);\r",
+							"    });\r",
+							"pm.test(\"имя записано в переменную\", function () {\r",
+							"    var data = JSON.parse(responseBody);\r",
+							"    pm.collectionVariables.set(\"name\", data.name);\r",
+							"    })\r",
+							"     "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "jessi",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/pets/:pet_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"pets",
+						":pet_id"
+					],
+					"variable": [
+						{
+							"key": "pet_id",
+							"value": "{{petid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение списка своих питомцев",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    var data = JSON.parse(responseBody);\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"новое имя = имени в переменной\", function () {\r",
+							"    var data = JSON.parse(responseBody);\r",
+							"    pm.expect(pm.collectionVariables.get(\"name\")).to.equal(data.pets[0].name);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/api/pets?filter=my_pets",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"pets"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "my_pets"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{auth_key}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "auth_key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://petfriends.skillfactory.ru",
+			"type": "string"
+		},
+		{
+			"key": "auth_key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "age",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "type",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "petid",
+			"value": ""
+		}
+	]
+}

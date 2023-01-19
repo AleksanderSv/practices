@@ -1,0 +1,8 @@
+тест кейсы 10,11,12    https://docs.google.com/spreadsheets/d/1TvKFL4O1s9AepfJies5e8uhi-bPraoSI0BLi9UmH_S8/edit#gid=1697226975
+тест кейсы
+https://docs.google.com/spreadsheets/d/1kqe9BUpbtQdvaUGfWeUuOj2BpyRyrX2XaghDM2t3QDA/edit#gid=0
+https://docs.google.com/spreadsheets/d/1u5C5MtKRHx1ZCP_KJ1zdJcV86EIvJi_q2OuyZsGqarA/edit#gid=0
+https://docs.google.com/spreadsheets/d/1K1CPwO_8yoT8qRrf3UGS2fr2qjYWQUEo-9ZtHDu4v4E/edit#gid=0
+баг репорты
+https://qastudents.atlassian.net/issues/?jql=issueKey%20in%20(PET-49%2CPET-51%2CPET-52)
+
